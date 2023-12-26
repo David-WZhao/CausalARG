@@ -34,7 +34,7 @@ parser.add_argument("--z2_dim", type=int, help='dimension of z2', default=256)
 
 args = parser.parse_args()
 
-#设置好参数
+#Hyperparameter Settings
 device = args.device
 if args.device != 'cpu':
     device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
@@ -48,20 +48,13 @@ X_dim, G_dim = args.X_dim, args.G_dim
 z1_dim, z2_dim = args.z1_dim, args.z2_dim
 print(str(args))
 dataloader = ARGDataLoader()
-# data, _ = dataloader.load_n_cross_data(1, 4)
-# for d, l1, l2, l3 in data:
-#     print(l1, l2, l3)
-#     exit()
-# print(dataloader.load_n_cross_data(1,1))
-# train_val_dataloader = dataloader.get_train_val_dataloader()
-# assert K == len(train_val_dataloader)
+
 
 transfer_count, mechanism_count, antibiotic_count = dataloader.get_data_shape()
-# print("transfer_count", transfer_count, "mechanism_count", mechanism_count, "antibiotic_count", antibiotic_count)
-# exit()
+
 alpha, beta, yita = 1, 0.2, 0.2
 
-#随机数种子
+#random number seed
 def setup_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -70,12 +63,10 @@ def setup_seed(seed):
     torch.backends.cudnn.deterministic = True
     
 seed_num = randint(1,1000)
-# seed_num = 584
 setup_seed(seed_num)
 print(seed_num)
-# setup_seed(42)
 
-# VAE的损失函数
+# Loss function of VAE
 def ELBO(recon_x, x, mu, logvar, anneal=0.025):
     loss_MSE = torch.nn.MSELoss(reduction='mean')
     mse = loss_MSE(recon_x, x)
@@ -86,17 +77,17 @@ def ELBO(recon_x, x, mu, logvar, anneal=0.025):
     # return anneal * KLD
 
 
-# Train  初始化各项评估指标
+# Train  Initialize evaluation metrics
 t_transfer_acc, t_transfer_precision, t_transfer_recall, t_transfer_f1 = 0, 0, 0, 0
 t_antibiotic_acc, t_antibiotic_precision, t_antibiotic_recall, t_antibiotic_f1 = 0, 0, 0, 0
 t_mechanism_acc, t_mechanism_precision, t_mechanism_recall, t_mechanism_f1 = 0, 0, 0, 0
 
 test_dataloader = dataloader.load_test_dataSet(batch_size)
 
-#循环kcross
+# train
 for k in range(K):
     print('Cross ', k + 1, ' of ', K)
-    #模型创建
+    #model creating
     model = CML(X_dim, G_dim, z1_dim, z2_dim, transfer_count, mechanism_count, antibiotic_count)
     model = model.to(device)
 
@@ -105,10 +96,7 @@ for k in range(K):
     antibiotic_loss_function = nn.NLLLoss()
     mechanism_loss_function = nn.NLLLoss()
 
-
-    # train_dataloader = train_val_dataloader[k]['train']
-    # val_dataloader = train_val_dataloader[k]['val']
-    #加载数据集
+    #loading data
     train_dataloader, val_dataloader = dataloader.load_n_cross_data(k + 1, batch_size)
 
     running_loss = 0.0
@@ -120,16 +108,13 @@ for k in range(K):
             seq_map, transfer_label, mechanism_label, antibiotic_label = seq_map.view(-1, 1, 1576, 23).to(device), transfer_label.to(device), mechanism_label.to(device), antibiotic_label.to(device)
             optimizer.zero_grad()
             transfer_output, mechanism_output, antibiotic_output, mu, logvar, recon_x, x = model.forward(seq_map)
-            # transfer_output, mechanism_output, antibiotic_output= model.forward(seq_map)
-            #各模块损失函数
+            #loss function
             loss_transfer = transfer_loss_function(torch.log(transfer_output + 0.000001), transfer_label)
             loss_mechanism = mechanism_loss_function(torch.log(mechanism_output + 0.000001), mechanism_label)
             loss_antibiotic = antibiotic_loss_function(torch.log(antibiotic_output + 0.000001), antibiotic_label)
 
             loss_ELBO = ELBO(recon_x, x, mu, logvar, anneal=0.025)
-            # loss = loss_function(torch.log(output), r.long())
-            loss = alpha * loss_antibiotic + beta * loss_mechanism + yita * loss_transfer + 0.02 * loss_ELBO
-            # loss = alpha * loss_antibiotic + beta * loss_mechanism + yita * loss_transfer
+            loss = alpha * loss_antibiotic + beta * loss_mechanism + yita * loss_transfer
 
             running_loss += loss.item()
             loss.backward()
@@ -177,7 +162,7 @@ for k in range(K):
         acc, macro_p, macro_r, macro_f1 = evaluate(val_antibiotic_pred, val_antibiotic_label, antibiotic_count)
         print('antibiotic -> acc: {}, precision: {}, recall: {}, f1: {}'.format(acc, macro_p, macro_r, macro_f1))
 
-    # 测试
+    # test
     model.eval()
     test_transfer_pred, test_transfer_label = np.empty(shape=[0, transfer_count]), np.array([])
     test_antibiotic_pred, test_antibiotic_label = np.empty(shape=[0, antibiotic_count]), np.array([])
@@ -199,7 +184,7 @@ for k in range(K):
         test_mechanism_pred = np.append(test_mechanism_pred, mechanism_output, axis=0)
         test_mechanism_label = np.concatenate((test_mechanism_label, mechanism_label))
 
-#计算评估指标
+#calculating metrics
     print('========Test: Cross ' + str(k + 1) + '===============')
     acc, macro_p, macro_r, macro_f1 = evaluate(test_transfer_pred, test_transfer_label, transfer_count)
     print('transfer -> acc: {}, precision: {}, recall: {}, f1: {}'.format(acc, macro_p, macro_r, macro_f1))
@@ -235,7 +220,7 @@ print('mechanism => final acc: {}, final precision: {}, final recall: {}, final 
 print('antibiotic => final acc: {}, final precision: {}, final recall: {}, final f1: {}\n'.format(t_antibiotic_acc / K, t_antibiotic_precision / K,
                                                                                                  t_antibiotic_recall / K,
                                                                                                  t_antibiotic_f1 / K))
-# 将结果写入到文本文件中
+# saving results
 with open('./res/result.txt', 'a', encoding='utf8') as f:
     f.write(str(args))
     f.write('\n seed =>{}\n'.format(seed_num))

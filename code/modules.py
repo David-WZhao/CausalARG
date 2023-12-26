@@ -44,8 +44,6 @@ class CML(nn.Module):
             nn.LeakyReLU()
         )
         self.vae = VAE(X_dim, 512, G_dim)
-        # self.causal = Causal(X_dim+ G_dim, transfer_count, mechanism_count, antibiotic_count)
-        # self.latent = latent_layer(X_dim)
         self.hidden = Hidden(X_dim, G_dim, z1_dim, z2_dim)
         self.causal = Causal(X_dim + G_dim, transfer_count, mechanism_count, antibiotic_count)
 
@@ -57,36 +55,12 @@ class CML(nn.Module):
         G, recon_x, mu, logvar = self.vae(x)
         z1, z2 = self.hidden(x, G)
         hidden_representation = torch.cat((z1, z2), dim=1)
-        # G, mu, logvar, recon_x = self.vae(x)
-        # Att_x, Att_G = self.crossAtt(x, G)
-        # hidden_representation = torch.cat((Att_x, Att_G), dim=1)
-        # hidden_representation = torch.cat((x, G), dim=1)
-        # transfer_pre, mechanism_pre, antibiotic_pre = self.causal(hidden_representation)
         transfer_pre, mechanism_pre, antibiotic_pre = self.causal(hidden_representation)
 
         return transfer_pre, mechanism_pre, antibiotic_pre, mu, logvar, recon_x, x
-        # return transfer_pre, mechanism_pre, antibiotic_pre
 
 
-
-        # return x
-
-
-#学习潜在表示G
-"""class latent_layer(nn.Module):
-    def __init__(self, x_dim):
-        super(latent_layer, self).__init__()
-        self.fc = nn.Sequential(
-            nn.Linear(x_dim, x_dim * 2),
-            nn.LeakyReLU(),
-            nn.Linear(x_dim * 2, x_dim)
-        )
-
-    def forward(self, x):
-        G = self.fc(x)
-        return G"""
-
-# 定义VAE模型
+# Define the VAE model
 class VAE(nn.Module):
     def __init__(self, input_dim, hidden_dim, G_dim):
         super(VAE, self).__init__()
@@ -120,7 +94,7 @@ class VAE(nn.Module):
         recon_x = self.decoder(G)
         return G, recon_x, mu, logvar
 
-# 定义隐藏层网络
+# Define hidden layer network
 class Hidden(nn.Module):
     def __init__(self, X_dim, G_dim, z1_dim, z2_dim):
         super(Hidden, self).__init__()
@@ -142,7 +116,7 @@ class Hidden(nn.Module):
         z2 = self.hidden2(G)
         return z1, z2
 
-# 定义因果图模块
+# Define the causal diagram module
 class Causal(nn.Module):
     def __init__(self, input_dim, transfer_count, mechanism_count, antibiotic_count):
         super(Causal, self).__init__()
@@ -152,13 +126,9 @@ class Causal(nn.Module):
         self.mechanism_layer = nn.Linear(input_dim + transfer_count, mechanism_count)
         self.antibiotic_layer = nn.Linear(input_dim + transfer_count + mechanism_count, antibiotic_count)
 
-        # self.mechanism_layer2 = nn.Linear(input_dim, mechanism_count)
-        # self.antibiotic_layer2 = nn.Linear(input_dim, antibiotic_count)
 
     def forward(self, input):
         transfer_pre = self.softmax(self.transfer_layer(input))
-        # mechanism_pre = self.softmax(self.mechanism_layer2(input))
-        # antibiotic_pre = self.softmax(self.antibiotic_layer2(input))
         mechanism_pre = self.softmax(self.mechanism_layer(torch.cat((input, transfer_pre), dim=1)))
         antibiotic_pre = self.softmax(self.antibiotic_layer(torch.cat((input, transfer_pre, mechanism_pre), dim=1)))
 
@@ -167,7 +137,7 @@ class Causal(nn.Module):
 
 
 
-#VAE的损失函数
+#Loss function of VAE
 def loss_function(recon_x, x, mu, logvar, anneal=1.0):
     BCE = -torch.mean(torch.sum(F.log_softmax(recon_x, 1) * x, -1))
     KLD = -0.5 * torch.mean(torch.sum(1 + logvar - mu.pow(2) - logvar.exp(), dim=1))
