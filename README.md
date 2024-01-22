@@ -19,4 +19,4 @@ Run "data_divide.py" to produce splitted dataset.
 
 python --device []    --batch_size []  --K  []  --X-dim  []   --G-dim  [] --z1_dim [] --z2_dim []
 
-example: python run_record_loss.py --device "gpu" --batch_size 32 --K 5 --X_dim 64 --G_dim 64 --z1_dim 64 --z2_dim 64
+example: python run_record_loss.py --device "gpu" --batch_size 32 --K 5 --X_dim 64 --G_dim 16 --z1_dim 64 --z2_dim 64
