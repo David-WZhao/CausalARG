@@ -6,7 +6,7 @@ torch.backends.cudnn.enabled = False
 
 
 class CML(nn.Module):
-    def __init__(self, X_dim, G_dim, z1_dim, z2_dim, gauus_hidden_dim, transfer_count, mechanism_count,
+    def __init__(self, X_dim, G_dim, z1_dim, z2_dim, transfer_count, mechanism_count,
                  antibiotic_count):
         super(CML, self).__init__()
         self.feature = nn.Sequential(

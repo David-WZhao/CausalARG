@@ -29,7 +29,6 @@ parser.add_argument("--X_dim", type=int, help='dimension of X', default=64)
 parser.add_argument("--G_dim", type=int, help='dimension of G', default=16)
 parser.add_argument("--z1_dim", type=int, help='dimension of z1', default=64)
 parser.add_argument("--z2_dim", type=int, help='dimension of z2', default=64)
-parser.add_argument("--gauus_hidden_dim", type=int, help='dimension of gauus_hidden_dim', default=64)
 
 
 
@@ -47,7 +46,6 @@ epoch = args.epoch
 K = args.K
 X_dim, G_dim = args.X_dim, args.G_dim
 z1_dim, z2_dim = args.z1_dim, args.z2_dim
-gauus_hidden_dim = args.gauus_hidden_dim
 print(str(args))
 dataloader = ARGDataLoader()
 
@@ -103,7 +101,7 @@ test_dataloader = dataloader.load_test_dataSet(batch_size)
 for k in range(K):
     print('Cross ', k + 1, ' of ', K)
 
-    model = CML(X_dim, G_dim, z1_dim, z2_dim, gauus_hidden_dim, transfer_count, mechanism_count, antibiotic_count)
+    model = CML(X_dim, G_dim, z1_dim, z2_dim, transfer_count, mechanism_count, antibiotic_count)
     model = model.to(device)
 
     optimizer = optim.Adam(model.parameters(), lr=lr)
