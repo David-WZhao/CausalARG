@@ -3,10 +3,10 @@
 This is the code of the Causal-ARG in our manuscript
 ### Requirement
 - python 3.8
-- torch == 1.12.1
+- torch == 2.1.0
 - scikit-learn == 1.2.2
-- numpy == 1.24.2
-- pandas == 1.3.4
+- numpy == 1.22.4
+- pandas == 2.1.2
 
 ### Data
 The process of collecting data is described in our manuscript and metadata can be accessed upon request.
