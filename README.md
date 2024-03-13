@@ -17,7 +17,7 @@ We provide two ways to use our model. First, complete the train and test via an 
 #### Using “run.ipynb”
 1. Install required python packages.
 2. Download the codes to local machine.
-3. Open the ipynb file “run.ipynb” in jupyter notebook, and execute all code blocks to derive prediction results.
+3. Open the ipynb file “run.ipynb” in jupyter notebook, and sequentially execute all code blocks to derive prediction results.
 
 #### Using trained model
 1. Open the Colab link we provided (https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing).
