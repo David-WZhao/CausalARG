@@ -12,8 +12,12 @@ This is the code of the Causal-ARG in our manuscript
 The process of collecting data is described in our manuscript and metadata can be accessed upon request.
 
 ### How to run the code?
+We provide two ways to use our model. First, complete the train and test via an integrated ipynb file “run.ipynb”; Second, employ our trained model to complete ARGs annotation via a Colab link.
+
+#### Using “run.ipynb”
 To facilitate use, in addition to the source code (i.e. `.py` files)  for each module, we also provide `.ipynb` files which include the entire process of model training. Simply download the code to your local machine and execute `run.ipynb` each code block in order to proceed with the training.
 
+#### Using trained model
 In addtion, we also provide a Colab link(https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing) to use our pre-trained model online. Through this link, you can directly access the code we provide for calling our trained model.
 
 First, you need to download the `mode.pth` in our github link and upload it to colab as following picture.
