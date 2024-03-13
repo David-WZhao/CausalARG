@@ -1,6 +1,6 @@
 # Causal-ARG
 
-This is the code of the Causal-ARG in our manuscript
+This is the code of the Causal-ARG in our manuscript "Causal-ARG: A Causality-guided Framework for Annotating Properties of Antibiotic Resistance Genes".
 ### Requirement
 - python 3.8
 - torch == 2.1.0
@@ -21,7 +21,7 @@ We provide two ways to use our model. First, complete the train and test via an 
 
 #### Using trained model
 1. Open the Colab link we provided (https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing).
-2. Download the trained model in our github link, i.e. file "model.pth".
+2. Download the trained model in our github link, i.e. the file "model.pth".
 3. Upload the "model.pth" to the file directory in Coalb file, as shown in the following pictures.
 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/a49bedb4-cd77-4ddc-9f40-e0bd5eccda19)
@@ -29,14 +29,9 @@ We provide two ways to use our model. First, complete the train and test via an 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/09e746b2-35fa-4dcc-9555-dab12607722a)
 
 
-4. After uploading the "model.pth", execute all code blocks in Colab file to derive prediction results.
+4. After uploading the "model.pth", execute all code blocks sequentially in Colab file to derive prediction results.
 
-
-### The time of training 
-
-It will take xxx minutes for training our model on a Linux server with a GPU 3090 (24GB), a CPU Intel(R) Core(TM) i9-10980XE CPU @ 3.00GHz and 64 GB RAM.  
-
-# Introduction of Baselines
+# Introduction to Baselines
 To comprehensively evaluate the effectiveness of the proposed method, the following three representative methods are selected as baselines for performance comparison:
 
 ## BestHit
