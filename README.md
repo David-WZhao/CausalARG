@@ -18,6 +18,8 @@ To facilitate use, in addition to the source code (i.e. `.py` files)  for each m
 
 In addtion, we also provide a Colab link(https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing) to use our pre-trained model online. Through this link, you can directly access the code we provide for calling our trained model.
 
+You can also open the `triained-model.ipynb` to use our trained model.
+
 # Introduction of Baselines
 Baselines
 To comprehensively evaluate the effectiveness of the proposed method, representative methods are selected as baselines for performance comparison, which are listed as follows.
