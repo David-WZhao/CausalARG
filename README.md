@@ -1,6 +1,6 @@
 # Causal-ARG
 
-This is the code of the Causal-ARG in our manuscript "Causal-ARG: A Causality-guided Framework for Annotating Properties of Antibiotic Resistance Genes".
+This is the codes of the Causal-ARG in our manuscript "Causal-ARG: A Causality-guided Framework for Annotating Properties of Antibiotic Resistance Genes".
 ### Requirement
 - python 3.8
 - torch == 2.1.0
