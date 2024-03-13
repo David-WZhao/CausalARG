@@ -20,21 +20,15 @@ We provide two ways to use our model. First, complete the train and test via an 
 3. Open the ipynb file “run.ipynb” in jupyter notebook, and execute all code blocks to derive prediction results.
 
 #### Using trained model
-In addtion, we also provide a Colab link(https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing) to use our pre-trained model online. Through this link, you can directly access the code we provide for calling our trained model.
-
-First, you need to download the `mode.pth` in our github link and upload it to colab as following picture.
-
-
+1. Open the Colab link we provided (https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing).
+2. Download the trained model in our github link, i.e. file "model.pth".
+3. Upload the "model.pth" to the file directory in Coalb file, as shown in the following pictures.
 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/a49bedb4-cd77-4ddc-9f40-e0bd5eccda19)
 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/09e746b2-35fa-4dcc-9555-dab12607722a)
 
-
-
-
-You can also open the `triained-model.ipynb` to use our trained model.
-
+4. After uploading the "model.pth", execute all code blocks in Colab file to derive prediction results
 
 
 ### The time of training 
