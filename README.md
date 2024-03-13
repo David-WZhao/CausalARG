@@ -15,7 +15,9 @@ The process of collecting data is described in our manuscript and metadata can b
 We provide two ways to use our model. First, complete the train and test via an integrated ipynb file “run.ipynb”; Second, employ our trained model to complete ARGs annotation via a Colab link.
 
 #### Using “run.ipynb”
-To facilitate use, in addition to the source code (i.e. `.py` files)  for each module, we also provide `.ipynb` files which include the entire process of model training. Simply download the code to your local machine and execute `run.ipynb` each code block in order to proceed with the training.
+1. Install required python packages.
+2. Download the codes to local machine.
+3. Open the ipynb file “run.ipynb” in jupyter notebook, and execute all code blocks to derive prediction results.
 
 #### Using trained model
 In addtion, we also provide a Colab link(https://colab.research.google.com/drive/1lzLFccXoGSYej1iVb1Y3TGuGfvF-EDDi?usp=sharing) to use our pre-trained model online. Through this link, you can directly access the code we provide for calling our trained model.
