@@ -24,9 +24,14 @@ In addtion, we also provide a Colab link(https://colab.research.google.com/drive
 
 First, you need to download the `mode.pth` in our github link and upload it to colab as following picture.
 
+
+
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/a49bedb4-cd77-4ddc-9f40-e0bd5eccda19)
 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/09e746b2-35fa-4dcc-9555-dab12607722a)
+
+
+
 
 You can also open the `triained-model.ipynb` to use our trained model.
 
