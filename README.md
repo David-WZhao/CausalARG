@@ -29,7 +29,7 @@ We provide two ways to use our model. First, complete the train and test via an 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/09e746b2-35fa-4dcc-9555-dab12607722a)
 
 
-4. After uploading the "model.pth", execute all code blocks in Colab file to derive prediction results
+4. After uploading the "model.pth", execute all code blocks in Colab file to derive prediction results.
 
 
 ### The time of training 
