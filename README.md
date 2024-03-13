@@ -28,12 +28,13 @@ We provide two ways to use our model. First, complete the train and test via an 
 
 ![image](https://github.com/David-WZhao/CausalARG/assets/31216817/09e746b2-35fa-4dcc-9555-dab12607722a)
 
+
 4. After uploading the "model.pth", execute all code blocks in Colab file to derive prediction results
 
 
 ### The time of training 
 
-The training time on a server with an RTX 3090 24GB GPU is approximately 
+It will take xxx minutes for training our model on a Linux server with a GPU 3090 (24GB), a CPU Intel(R) Core(TM) i9-10980XE CPU @ 3.00GHz and 64 GB RAM.  
 
 # Introduction of Baselines
 To comprehensively evaluate the effectiveness of the proposed method, the following three representative methods are selected as baselines for performance comparison:
